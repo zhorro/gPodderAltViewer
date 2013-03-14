@@ -11,7 +11,7 @@ Rectangle {
             Row {
                 Text { text:  id  }
                 Text { text:  podcast_id  }
-                Text { text:  title  }
+/*                Text { text:  title  }
                 Text { text:  description  }
                 Text { text:  url  }
                 Text { text:  published  }
@@ -27,7 +27,7 @@ Rectangle {
                 Text { text:  current_position  }
                 Text { text:  current_position_updated  }
                 Text { text:  last_playback  }
-                Text { text:  payment_url  }
+                Text { text:  payment_url  }*/
                 spacing: 10
             }
         }
