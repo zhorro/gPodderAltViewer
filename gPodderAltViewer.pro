@@ -26,3 +26,6 @@ qtcAddDeployment()
 
 HEADERS += \
     sqlquerymodel.h
+
+OTHER_FILES += \
+    qml/gPodderAltViewer/PodcastItem.qml
