@@ -15,6 +15,7 @@
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
+    Q_INIT_RESOURCE (resource);
     QScopedPointer<QApplication> app(createApplication(argc, argv));
 
     QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
@@ -29,13 +30,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
         viewer.setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
 
         QDeclarativeContext *ctxt = viewer.rootContext();
-        //ctxt->setContextProperty("testModel", QVariant::fromValue(dataList));
         ctxt->setContextProperty("testModel", model);
-        viewer.setMainQmlFile(QLatin1String("qml/gPodderAltViewer/main.qml"));
+        viewer.setSource(QUrl("qrc:/qml/main.qml"));
         viewer.showExpanded();
-
-
-
 
         return app->exec();
     }
