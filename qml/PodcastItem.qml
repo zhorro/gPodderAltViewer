@@ -2,175 +2,71 @@ import QtQuick 1.1
 
 Component {
     Item {
-        id: rssItem
-        property int newEpisodes: 0
-        property int downloaded: 0
-        property string description: ""
-        property string url: ""
+//        id: podcastItem
+        property int w: 64
 
-        property string title: "untitled"
-        property string icon: "qrc:/images/RSS.png"
-        property string tag: "All"
+// Описание
+        property int podcast_id
+        property alias title: titleText.text
+        property string description
+        property string url
+        property int published
+// Ссылки
+        property int file_size
+        property string guid
+        property string link
+        property string mime_type
+        property string payment_url
+// Флаги
+        property int state
+        property bool is_new
+        property bool archive
+// Время
+        property int total_time
+// Проигрыватель
+        property int current_position
+        property int current_position_updated
+        property int last_playback
+        property string download_filename
+
         property int deleteInDays: -1
 
         width: 360
-        height: 32
+        height: w
+
+        function mimeIcon (mime, w)
+        {
+            var iconStr = "qrc:/images/RSS.png";
+            if(mime==="audio/mpeg")
+                iconStr = "qrc:/images/Gnome-Audio-Input-Microphone-"+w+".png";
+            else if (mime==="video/mp4")
+                iconStr = "qrc:/images/Gnome-Applications-Multimedia-"+w+".png";
+            return iconStr;
+        }
 
         Image {
-            id: itemImage
-            anchors {
-                top: parent.top
-                bottom: parent.bottom
-                left: itemsAmounts.right
-
-                topMargin: 0
-                bottomMargin: 0
-                leftMargin: 16
-            }
-
-            width: height
-            source: rssItem.icon
+            id: podcastIcon;
+            source: mimeIcon(podcastItem.mime_type, w)
+            height: w
+            width:  w
         }
-
-        function positiveIntToString(a){
-            var result = "";
-            if (a>0)
-                result = a;
-            return result;
-        }
-
-        function ifFirstEmptySecond(a,b) {
-            if (a === "")
-                return b;
-            return a;
-        }
-
 
         Text {
-            id: descLabel
-            text: ifFirstEmptySecond(parent.description, parent.url)
-            verticalAlignment: Text.AlignVCenter
-
-            anchors{
-                bottom: parent.bottom
-                top: parent.top
-                right: parent.right
-                left: itemImage.right
-
-                bottomMargin: 0
-                topMargin: 0
-                rightMargin: 0
-                leftMargin: 16
-            }
+            id: titleText
+            height: w/2
+            text: qsTr("")
+            anchors.top: parent.top
+            anchors.right: parent.right
+            anchors.left: podcastIcon.right
         }
 
-        Rectangle {
-            id: itemsAmounts
-            width: height
-            radius: 0
-            visible: true
-
-            anchors {
-                left: parent.left
-                bottom: parent.bottom
-                top: parent.top
-
-                leftMargin: 0
-                bottomMargin: 0
-                topMargin: 0
-            }
-
-            Image {
-                id: stateImage
-                visible: false
-                anchors.fill: parent
-            }
-
-            Text {
-                id: newItemsLabel
-                text: positiveIntToString(parent.parent.newEpisodes)
-
-                anchors{
-                    right: parent.right
-                    left: parent.left
-                    top: parent.top
-
-                    rightMargin: 0
-                    leftMargin: 0
-                    topMargin: 0
-                }
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                height: width/2;
-            }
-
-            Text {
-                id: dowItemsLabel
-                text: positiveIntToString(parent.parent.downloaded)
-
-                anchors {
-                    right: parent.right
-                    left: parent.left
-                    bottom: parent.bottom
-
-                    rightMargin: 0
-                    leftMargin: 0
-                    bottomMargin: 0
-                }
-
-                horizontalAlignment: Text.AlignRight
-                verticalAlignment: Text.AlignVCenter
-
-                height: width/2;
-            }
+        Text {
+            id: itemDescr
+            height: w/2
+            text: published
+            anchors.right: parent.right
+            anchors.left: podcastIcon.right
+            anchors.top: titleText.bottom
         }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                rssItem.state = 'updating'
-                Ziba.updateRssItem(rssItem.url);
-            }
-        }
-
-        states: [
-            State {
-                name: "awaiting"
-                PropertyChanges {
-                    target: stateImage
-                    visible: false
-                }
-
-                PropertyChanges {
-                    target: newItemsLabel
-                    visible: true
-                }
-                PropertyChanges {
-                    target: dowItemsLabel
-                    visible: true
-                }
-            },
-            State {
-                name: "playing"
-            },
-            State {
-                name: "updating"
-
-                PropertyChanges {
-                    target: stateImage
-                    source: "../Images/loading/loading4.gif"
-                }
-
-                PropertyChanges {
-                    target: newItemsLabel
-                    visible: false
-                }
-                PropertyChanges {
-                    target: dowItemsLabel
-                    visible: false
-                }
-            }
-        ]
     }
 }

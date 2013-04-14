@@ -27,7 +27,7 @@ void SqlQueryModel::generateRoleNames()
     for( int i = 0; i < record().count(); i++) {
         QByteArray r = record().fieldName(i).toAscii();
         roleNames[Qt::UserRole + i + 1] = r;
-        qDebug() << "Text { text: " << r << " }";
+        qDebug() << "Roles: " << r;
     }
     setRoleNames(roleNames);
 }
