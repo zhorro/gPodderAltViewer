@@ -25,9 +25,10 @@ void SqlQueryModel::generateRoleNames()
 {
     QHash<int, QByteArray> roleNames;
     for( int i = 0; i < record().count(); i++) {
-        QByteArray r = record().fieldName(i).toAscii();
-        roleNames[Qt::UserRole + i + 1] = r;
-        qDebug() << "Roles: " << r;
+        QByteArray r = (QString("_%1").arg(record().fieldName(i))).toAscii();
+        int role = Qt::UserRole + i + 1;
+        roleNames[role] = r;
+        qDebug() << "Roles: " << i << " : " << r;
     }
     setRoleNames(roleNames);
 }

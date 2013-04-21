@@ -10,5 +10,6 @@
         <file>images/Gnome-Audio-Input-Microphone-32.png</file>
         <file>images/Gnome-Audio-Input-Microphone-48.png</file>
         <file>images/Gnome-Audio-Input-Microphone-64.png</file>
+        <file>qml/age.js</file>
     </qresource>
 </RCC>

@@ -34,7 +34,8 @@ HEADERS += \
 OTHER_FILES += \
     qml/main.qml \
     qml/PodcastItem.qml \
-    qml/RssItem.qml
+    qml/RssItem.qml \
+    qml/age.js
 
 RESOURCES += \
     resource.qrc
